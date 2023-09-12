@@ -10,7 +10,9 @@ namespace MyAspNetAppWeb.Models
         public int Stock { get; set; }
         public string? Color { get; set; }
 
-                
+        public bool IsPublish { get; set; }
+        public string Expire { get; set; } 
+
 
     }
 }

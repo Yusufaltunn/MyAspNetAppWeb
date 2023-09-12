@@ -7,13 +7,11 @@ namespace MyAspNetAppWeb.Controllers
     public class ProductsController : Controller
     {
         private AppDbContext _context;
-        private IHelper _helper;    
 
         private readonly ProductRepository _productRepository;
-        public ProductsController(AppDbContext context, IHelper helper)
+        public ProductsController(AppDbContext context)
         {
             _productRepository = new ProductRepository();
-            _helper = helper;
             _context = context;
 
         
@@ -21,12 +19,10 @@ namespace MyAspNetAppWeb.Controllers
 
         }
 
-        public IActionResult Index([FromServices]IHelper helper2)
+        public IActionResult Index()
         {
-            var text = "Asp.net";
-            var upperText = _helper.Upper(text);
-            var status = _helper.Equals(helper2);
-
+          
+           
             var products = _context.Products.ToList();
 
 
@@ -44,6 +40,9 @@ namespace MyAspNetAppWeb.Controllers
         [HttpGet]
         public IActionResult Add()
         {
+           ViewBag.Expire = new List<string>() { "1.Ay", "3.Ay", "6.Ay", "12.Ay" };
+
+
             return View();
 
         }
