@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using MyAspNetAppWeb.Helpers;
 using MyAspNetAppWeb.Models;
 
@@ -52,6 +53,16 @@ namespace MyAspNetAppWeb.Controllers
             };
 
 
+            ViewBag.ColorSelect = new SelectList(new List<ColorSelectList>() {
+
+
+                new(){Data="Mavi",Value="Mavi"},
+                new(){Data="kırmızı",Value="kırmızı"},
+                new(){Data="sarı",Value="sarı"}
+
+            }, "Value", "Data");
+
+
             return View();
 
         }
@@ -77,15 +88,35 @@ namespace MyAspNetAppWeb.Controllers
             return RedirectToAction("Index");
 
         }
+        [HttpGet]
 
         public IActionResult Update(int id)
         {
             var product = _context.Products.Find(id);
 
+            ViewBag.ExpireValue = product.Expire;
+            ViewBag.Expire = new Dictionary<string, int>()
+            {
+                { "1 Ay",1},
+                { "3 Ay",3},
+                { "6 Ay",6},
+                { "12 Ay",12}
+
+            };
+            ViewBag.ColorSelect = new SelectList(new List<ColorSelectList>() {
+
+
+                new(){Data="Mavi",Value="Mavi"},
+                new(){Data="kırmızı",Value="kırmızı"},
+                new(){Data="sarı",Value="sarı"}
+
+            }, "Value", "Data",product.Color);
+
+
             return View(product);
         }
         [HttpPost]
-        public IActionResult Update(Product updateProduct,int productId)
+        public IActionResult Update(Product updateProduct,int productId,string type)
         {
             updateProduct.Id= productId;
             _context.Products.Update(updateProduct);
@@ -97,5 +128,6 @@ namespace MyAspNetAppWeb.Controllers
             return RedirectToAction("Index");
 
         }
+
     }
 }

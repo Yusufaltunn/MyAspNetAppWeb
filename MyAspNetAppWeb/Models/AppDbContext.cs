@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace MyAspNetAppWeb.Models
 {
@@ -11,5 +12,10 @@ namespace MyAspNetAppWeb.Models
  
         public DbSet<Product>Products  { get; set; }
 
+        public void SaveChanges()
+        {
+        }
+
+    
     }
 }

@@ -15,7 +15,7 @@
     </div>
 
     <div class="mb-3">
-        <label asp-for="Price" class="form-label">Ürün Fiyatı :</label>
+        <label asp-for="Price" class="form-label">Ürün Fiyat :</label>
         <input class="form-control" asp-for="Price">
     </div>
 
@@ -25,9 +25,12 @@
     </div>
 
     <div class="mb-3">
-        <label asp-for="Color" class="form-label">Ürün Rengi</label>
-        <input class="form-control" asp-for="Color">
+       @*  <label asp-for="Color" class="form-label">Ürün Renk</label>
+        <input class="form-control" asp-for="Color"> *@
     </div>
+    <select class="form-select" asp-for="Color" asp-items="@ViewBag.ColorSelect">
+        <option value="">Renk Seçiniz</option>
+    </select>
 
     <div class="form-check">
         <input  class="form-check-input" asp-for="IsPublish">
@@ -52,6 +55,17 @@
         }
     </div>
 
+    <div class="form-floating mb-3">
+  <textarea asp-for="Description" class="form-control" placeholder="Ürün açıklama"  style="height: 100px"></textarea>
+  <label asp-for="Description">ürün açıklama</label>
+</div>
+
+
+    <div class="mb-3">
+        <label asp-for="PublishDate" class="form-label">Ürün yayınlanma tarihi :</label>
+        <input class="form-control" asp-for="PublishDate">
+
+    </div>
 
     <button class="btn btn-primary" type="submit">Ürün Kaydet</button>
 
