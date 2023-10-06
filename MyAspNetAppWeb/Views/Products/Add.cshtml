@@ -3,7 +3,8 @@
 
 }
 
-@model Product
+@model ProductViewModel
+
 <h1>ürün ekleme</h1>
 
 <form asp-controller="Products" asp-action="Add" method="post">
@@ -11,6 +12,7 @@
     <div class="mb-3">
         <label asp-for="Name" class="form-label">Ürün ismi :</label>
         <input class="form-control"  asp-for="Name" >
+        <span class="text-danger" asp-validation-for="Name"></span>
 
     </div>
 

@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using MyAspNetAppWeb.Helpers;
 using MyAspNetAppWeb.Models;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +17,7 @@ builder.Services.AddDbContext<AppDbContext
 
 builder.Services.AddTransient<IHelper,Helper>();
  
+builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
 
 

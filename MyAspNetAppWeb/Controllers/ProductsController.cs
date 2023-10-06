@@ -1,7 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using MyAspNetAppWeb.Helpers;
 using MyAspNetAppWeb.Models;
+using MyAspNetAppWeb.ViewModels;
+
 
 namespace MyAspNetAppWeb.Controllers
 {
@@ -9,15 +12,13 @@ namespace MyAspNetAppWeb.Controllers
     {
         private AppDbContext _context;
 
+        private readonly IMapper _mapper;
         private readonly ProductRepository _productRepository;
-        public ProductsController(AppDbContext context)
+        public ProductsController(AppDbContext context, IMapper mapper)
         {
             _productRepository = new ProductRepository();
             _context = context;
-
-        
-
-
+            _mapper = mapper;
         }
 
         public IActionResult Index()
@@ -27,7 +28,7 @@ namespace MyAspNetAppWeb.Controllers
             var products = _context.Products.ToList();
 
 
-            return View(products);
+            return View(_mapper.Map<List<ProductViewModel>>(products));
         }
 
         public IActionResult Remove(int id)
@@ -67,9 +68,42 @@ namespace MyAspNetAppWeb.Controllers
 
         }
         [HttpPost]
-        public IActionResult Add(Product newProduct)
+        public IActionResult Add(ProductViewModel newProduct)
         {
-            
+            if (ModelState.IsValid)
+            {  
+            _context.Products.Add(_mapper.Map<Product>(newProduct)) ;
+            _context.SaveChanges();
+            TempData["status"] = "ürün başarıyla eklendi ";
+
+
+            return RedirectToAction("Index");
+
+            }
+            else
+            {
+
+                ViewBag.Expire = new Dictionary<string, int>()
+            {
+                { "1 Ay",1},
+                { "3 Ay",3},
+                { "6 Ay",6},
+                { "12 Ay",12}
+
+            };
+
+
+                ViewBag.ColorSelect = new SelectList(new List<ColorSelectList>() {
+
+
+                new(){Data="Mavi",Value="Mavi"},
+                new(){Data="kırmızı",Value="kırmızı"},
+                new(){Data="sarı",Value="sarı"}
+
+            }, "Value", "Data");
+
+                return View();
+            }
             /*1.yöntem
              * var name = HttpContext.Request.Form["Name"].ToString();
             var price =decimal.Parse( HttpContext.Request.Form["Price"].ToString());
@@ -80,12 +114,7 @@ namespace MyAspNetAppWeb.Controllers
             Product  newProduct =new Product() { Name=Name,Price=Price,Color=Color,Stock=Stock};
             */
 
-            _context.Products.Add(newProduct);
-            _context.SaveChanges();
-            TempData["status"] = "ürün başarıyla eklendi ";
-
-
-            return RedirectToAction("Index");
+        
 
         }
         [HttpGet]
