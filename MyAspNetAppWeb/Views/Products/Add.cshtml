@@ -19,21 +19,26 @@
     <div class="mb-3">
         <label asp-for="Price" class="form-label">Ürün Fiyat :</label>
         <input class="form-control" asp-for="Price">
+        <span class="text-danger" asp-validation-for="Price"></span>
     </div>
 
     <div class="mb-3">
         <label asp-for="Stock" class="form-label">Ürün Stok : </label>
-        <input class="form-control" asp-for="Stock">
+        <input type="number" class="form-control" asp-for="Stock">
+        <span class="text-danger" asp-validation-for="Stock"></span>
+
     </div>
 
     <div class="mb-3">
        @*  <label asp-for="Color" class="form-label">Ürün Renk</label>
         <input class="form-control" asp-for="Color"> *@
-    </div>
+    
     <select class="form-select" asp-for="Color" asp-items="@ViewBag.ColorSelect">
         <option value="">Renk Seçiniz</option>
     </select>
+        <span class="text-danger" asp-validation-for="Color"></span>
 
+    </div>
     <div class="form-check">
         <input  class="form-check-input" asp-for="IsPublish">
         <label class="form-check-label" asp-for="IsPublish">
@@ -55,17 +60,23 @@
 
 
         }
+        <span class="text-danger" asp-validation-for="Expire"></span>
+
     </div>
 
     <div class="form-floating mb-3">
   <textarea asp-for="Description" class="form-control" placeholder="Ürün açıklama"  style="height: 100px"></textarea>
   <label asp-for="Description">ürün açıklama</label>
+        <span class="text-danger" asp-validation-for="Description"></span>
+
 </div>
 
 
     <div class="mb-3">
         <label asp-for="PublishDate" class="form-label">Ürün yayınlanma tarihi :</label>
         <input class="form-control" asp-for="PublishDate">
+        <span class="text-danger" asp-validation-for="PublishDate"></span>
+
 
     </div>
 
