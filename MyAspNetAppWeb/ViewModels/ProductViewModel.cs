@@ -32,5 +32,7 @@ namespace MyAspNetAppWeb.ViewModels
         [Required(ErrorMessage = "Yayınlanma Süresi  boş olamaz")]
 
         public int Expire { get; set; }
+        [EmailAddress(ErrorMessage ="Email adresi uygun formatta değil")]
+        public string EmailAddress { get; set; }
     }
 }
