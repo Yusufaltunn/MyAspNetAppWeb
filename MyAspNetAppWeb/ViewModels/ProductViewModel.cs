@@ -8,7 +8,8 @@ namespace MyAspNetAppWeb.ViewModels
         [StringLength(50,ErrorMessage ="isim alanına en fazla 50 karakter gireblir")]
         [Required(ErrorMessage ="isim alanı boş olamaz")]
         public string? Name { get; set; }
-        
+
+       
         [Required(ErrorMessage = "Fiyat alanı boş olamaz")]
         [Range(1, 200, ErrorMessage = "FİYAT alanı 1 ile 1000 arasında değer olmalıdır")]
         public decimal? Price { get; set; }

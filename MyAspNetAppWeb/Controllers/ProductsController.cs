@@ -70,6 +70,8 @@ namespace MyAspNetAppWeb.Controllers
         [HttpPost]
         public IActionResult Add(ProductViewModel newProduct)
         {
+
+           
             if (ModelState.IsValid)
             {  
             _context.Products.Add(_mapper.Map<Product>(newProduct)) ;
@@ -82,6 +84,12 @@ namespace MyAspNetAppWeb.Controllers
             }
             else
             {
+
+                if (!string.IsNullOrEmpty(newProduct.Name) && newProduct.Name.StartsWith("A"))
+                {
+                    ModelState.AddModelError(String.Empty, "Ürün ismi A harfi başlayamaz");
+                }
+
 
                 ViewBag.Expire = new Dictionary<string, int>()
             {
